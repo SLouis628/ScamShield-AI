@@ -30,4 +30,3 @@ elif threat_score >= 20:
     print("Risk Level: MEDIUM")
 else:
     print("Risk Level: LOW")
-    

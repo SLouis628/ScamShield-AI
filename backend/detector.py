@@ -1,6 +1,7 @@
 # ScamShield AI v0.1
 import re
 from reputation_lookup import check_domain, check_phone
+from domain_lookup import get_domain_age
 
 message = input("Enter suspicious message: ")
 
@@ -40,6 +41,9 @@ if domains:
     for domain in domains:
         result = check_domain(domain)
         print("Reputation:", result)
+
+        age = get_domain_age(domain)
+        print("Creation Date:", age)
 
         if result == "Known Scam Domain":
             threat_score += 40

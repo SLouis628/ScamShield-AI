@@ -1,5 +1,6 @@
 # ScamShield AI v0.1
 import re
+from reputation_lookup import check_domain, check_phone
 
 message = input("Enter suspicious message: ")
 
@@ -36,6 +37,12 @@ domains = re.findall(
 if domains:
     print("Domain detected:")
     print(domains)
+    for domain in domains:
+        result = check_domain(domain)
+        print("Reputation:", result)
+
+        if result == "Known Scam Domain":
+            threat_score += 40
 
 phone_numbers = re.findall(
     r'(\+?\d[\d\-\(\) ]{7,}\d)',
@@ -46,6 +53,12 @@ if phone_numbers:
     threat_score += 20
     print("Phone number detected:")
     print(phone_numbers)
+    for number in phone_numbers:
+        result = check_phone(number)
+        print("Reputation:", result)
+
+        if result == "Known Scam Number":
+            threat_score += 40
 
 emails = re.findall(
     r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b',

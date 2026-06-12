@@ -66,7 +66,13 @@ if domains:
         print("Reputation:", result)
 
         age = get_domain_age(domain)
-        print("Creation Date:", age)
+
+        if age:
+           print("Domain Age:", age, "days")
+
+           if age < 90:
+              print("⚠ Very new domain detected")
+              threat_score += 30
 
         if result == "Known Scam Domain":
             threat_score += 40

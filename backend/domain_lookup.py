@@ -1,4 +1,5 @@
 import whois
+from datetime import datetime
 
 def get_domain_age(domain):
     try:
@@ -9,7 +10,9 @@ def get_domain_age(domain):
         if isinstance(creation_date, list):
             creation_date = creation_date[0]
 
-        return creation_date.strftime("%Y-%m-%d")
+        age_days = (datetime.now() - creation_date.replace(tzinfo=None)).days
+
+        return age_days
 
     except Exception:
-        return "Unknown"
+        return None

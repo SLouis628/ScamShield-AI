@@ -1,4 +1,5 @@
 # ScamShield AI v0.1
+import re
 
 message = input("Enter suspicious message: ")
 
@@ -21,6 +22,11 @@ for keyword in suspicious_keywords:
     if keyword.lower() in message.lower():
         threat_score += 10
 
+urls = re.findall(r'https?://\S+|www\.\S+', message)
+
+if urls:
+    threat_score += 30
+    print("Suspicious URL detected!")
 print("\n--- ScamShield Analysis ---")
 print("Threat Score:", threat_score)
 

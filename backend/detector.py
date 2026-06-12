@@ -2,6 +2,7 @@
 import re
 from reputation_lookup import check_domain, check_phone
 from domain_lookup import get_domain_age
+from explainer import explain_results
 
 message = input("Enter suspicious message: ")
 
@@ -18,10 +19,30 @@ suspicious_keywords = [
     "winner",
     "claim",
     "prize"
+    "immediately",
+    "act now",
+    "limited time",
+    "expires today",
+    "final warning",
+    "last chance"
+]
+
+urgency_keywords = [
+    "immediately",
+    "act now",
+    "limited time",
+    "expires today",
+    "final warning",
+    "last chance"
 ]
 
 for keyword in suspicious_keywords:
     if keyword.lower() in message.lower():
+     print("Matched:", keyword)
+
+    if keyword in urgency_keywords:
+        threat_score += 20
+    else:
         threat_score += 10
 
 urls = re.findall(r'https?://\S+|www\.\S+', message)
@@ -75,6 +96,10 @@ if emails:
     print(emails)
 print("\n--- ScamShield Analysis ---")
 print("Threat Score:", threat_score)
+
+print("\nReasons:")
+for reason in explain_results(threat_score):
+    print("-", reason)
 
 if threat_score >= 50:
     print("Risk Level: HIGH")

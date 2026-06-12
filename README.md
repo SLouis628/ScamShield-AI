@@ -47,6 +47,6 @@ tests/
 
 ## Author
 
-Stéphanie Louis
+Stephanie Louis
 
 Cybersecurity Student | ScamShield AI Project

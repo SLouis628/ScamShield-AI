@@ -28,6 +28,15 @@ if urls:
     threat_score += 30
     print("Suspicious URL detected!")
 
+domains = re.findall(
+    r'https?://(?:www\.)?([^/\s]+)',
+    message
+)
+
+if domains:
+    print("Domain detected:")
+    print(domains)
+
 phone_numbers = re.findall(
     r'(\+?\d[\d\-\(\) ]{7,}\d)',
     message

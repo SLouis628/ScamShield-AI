@@ -36,9 +36,11 @@ urgency_keywords = [
     "last chance"
 ]
 
+matched_keywords = []
 for keyword in suspicious_keywords:
     if keyword.lower() in message.lower():
      print("Matched:", keyword)
+     matched_keywords.append(keyword)
 
     if keyword in urgency_keywords:
         threat_score += 20
@@ -98,7 +100,8 @@ print("\n--- ScamShield Analysis ---")
 print("Threat Score:", threat_score)
 
 print("\nReasons:")
-for reason in explain_results(threat_score):
+for reason in explain_results(threat_score, 
+matched_keywords, urls, domains, phone_numbers, emails):
     print("-", reason)
 
 if threat_score >= 50:
